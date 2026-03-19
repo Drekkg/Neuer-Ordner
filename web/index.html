@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memorize It - Web</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">Personalized Brain Training</p>
+        <h1>Memorize It</h1>
+        <p class="subtitle">
+          Build gentle memory puzzles using familiar photos, favorite things, and personal interests.
+        </p>
+      </header>
+
+      <main>
+        <section id="profile-view" class="panel">
+          <h2>Profile Setup</h2>
+          <p class="helper">Add meaningful details to personalize each puzzle round.</p>
+
+          <form id="profile-form" class="form-stack">
+            <label>
+              <span>Name</span>
+              <input id="name" type="text" placeholder="e.g., Anna" autocomplete="name" />
+            </label>
+
+            <label>
+              <span>Interests (comma separated)</span>
+              <input id="interests" type="text" placeholder="family stories, birds" />
+            </label>
+
+            <label class="upload-wrap">
+              <span>Personal Photos</span>
+              <input id="photo-upload" type="file" accept="image/*" multiple />
+            </label>
+
+            <div id="photo-preview" class="photo-preview" aria-live="polite"></div>
+
+            <div class="button-row">
+              <button type="submit" class="btn primary">Save and Start Puzzle</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="puzzle-view" class="panel hidden">
+          <div class="puzzle-topbar">
+            <div>
+              <h2 id="puzzle-title">Memory Puzzle</h2>
+              <p id="puzzle-status" class="helper">Moves: 0 | Matched: 0/0</p>
+            </div>
+            <div class="button-row">
+              <button id="new-round" class="btn">New Round</button>
+              <button id="edit-profile" class="btn">Edit Profile</button>
+            </div>
+          </div>
+
+          <div id="empty-state" class="empty hidden">
+            Add at least one photo or interest in profile setup to build a puzzle.
+          </div>
+
+          <div id="game-grid" class="game-grid" aria-live="polite"></div>
+          <div id="win-banner" class="win hidden">Great job. All pairs matched.</div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

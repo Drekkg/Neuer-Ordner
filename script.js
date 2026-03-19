@@ -1,25 +1,25 @@
 const STORAGE_KEY = "memorizeit_web_profile_v1";
 const CARD_BACK_SYMBOLS = [
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "&",
-  "*",
-  "+",
-  "=",
-  "~",
-  "^",
-  "?",
-  "/",
-  "\\",
-  "|",
-  "<",
-  ">",
-  "[",
-  "]",
-  "{}"
+  "🌸",
+  "🦋",
+  "🌈",
+  "⭐",
+  "🎈",
+  "🍀",
+  "🌻",
+  "🦁",
+  "🐬",
+  "🎵",
+  "🌙",
+  "🍁",
+  "🦚",
+  "🐝",
+  "🌺",
+  "🎭",
+  "🦜",
+  "🌿",
+  "🍓",
+  "🏵️"
 ];
 
 const state = {
@@ -238,7 +238,10 @@ function renderGrid() {
         button.appendChild(label);
       }
     } else {
-      button.textContent = card.backSymbol;
+      const symbol = document.createElement("span");
+      symbol.className = "card-back-symbol";
+      symbol.textContent = card.backSymbol;
+      button.appendChild(symbol);
     }
 
     nodes.gameGrid.appendChild(button);

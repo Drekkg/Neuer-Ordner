@@ -188,7 +188,7 @@ function showProfileView() {
 }
 
 function renderPuzzleHeader() {
-  const matchedPairs = state.cards.filter((c) => c.isMatched).length / 2;
+  const matchedPairs = state.cards.filter((c) => c.isMatched).length / 2 + 1;
   const totalPairs = state.cards.length / 2;
   nodes.puzzleStatus.textContent = `Moves: ${state.moves} | Matched: ${matchedPairs}/${totalPairs}`;
 }

@@ -1,39 +1,26 @@
-# Memorize It
+# Memorize It Web
 
-Memorize It includes a browser version of a personalized brain training puzzle app designed around familiar personal memories.
-Users can upload personal photos, choose a grade from 5 to 10 photos, and turn those into a memory matching game.
+Browser version of the personalized memory puzzle app.
 
 ## Features
 
-- Profile setup with name and grade selection from 5 to 10 photos
-- Photo upload from device gallery
-- Local profile persistence using localStorage
-- Personalized memory match puzzle using uploaded photos only
+- Profile setup with name and a grade level from 5 to 10 photos
+- Multiple personal photo upload
+- Local persistence with localStorage
+- Personalized memory card game from uploaded photos only
 
-## Platforms
+## Run
 
-- Web app: HTML/CSS/JavaScript in `web/`
+1. Open web/index.html in a browser, or
+2. Serve the folder with any static server (recommended).
 
-## Project Structure
+### Optional local server examples
 
-- web/index.html: profile setup and puzzle layout
-- web/styles.css: visual styling
-- web/script.js: profile persistence and puzzle logic
+- Python: `python -m http.server 8080` from the project root, then open `http://localhost:8080/web/`
+- Node: `npx serve web`
 
-## Build and Run
+## Files
 
-### Web
-
-1. Open `web/index.html` in a browser, or run a local static server.
-2. Optional local server from workspace root: `python -m http.server 8080`
-3. Open `http://localhost:8080/web/`
-
-## Notes for Dementia-Friendly Iteration
-
-The current version is a functional baseline. For production use with dementia patients, consider:
-
-- Larger fonts and higher contrast options
-- Optional audio prompts and voice instructions
-- Caregiver mode for content setup
-- Session analytics for progress tracking
-- Calmer pacing and reduced time pressure
+- web/index.html
+- web/styles.css
+- web/script.js

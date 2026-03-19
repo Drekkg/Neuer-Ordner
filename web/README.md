@@ -4,10 +4,10 @@ Browser version of the personalized memory puzzle app.
 
 ## Features
 
-- Profile setup with name, likes, and interests
+- Profile setup with name and a grade level from 5 to 10 photos
 - Multiple personal photo upload
 - Local persistence with localStorage
-- Personalized memory card game from uploaded photos and text details
+- Personalized memory card game from uploaded photos only
 
 ## Run
 

@@ -1,4 +1,26 @@
 const STORAGE_KEY = "memorizeit_web_profile_v1";
+const CARD_BACK_SYMBOLS = [
+  "!",
+  "@",
+  "#",
+  "$",
+  "%",
+  "&",
+  "*",
+  "+",
+  "=",
+  "~",
+  "^",
+  "?",
+  "/",
+  "\\",
+  "|",
+  "<",
+  ">",
+  "[",
+  "]",
+  "{}"
+];
 
 const state = {
   profile: loadProfile(),
@@ -14,7 +36,7 @@ const nodes = {
   puzzleView: document.getElementById("puzzle-view"),
   form: document.getElementById("profile-form"),
   name: document.getElementById("name"),
-  interests: document.getElementById("interests"),
+  photoGrade: document.getElementById("photo-grade"),
   photoUpload: document.getElementById("photo-upload"),
   photoPreview: document.getElementById("photo-preview"),
   puzzleTitle: document.getElementById("puzzle-title"),
@@ -40,15 +62,22 @@ function initialize() {
 
 function hydrateProfileForm() {
   nodes.name.value = state.profile.name || "";
-  nodes.interests.value = state.profile.interests.join(", ");
+  nodes.photoGrade.value = String(state.profile.photoGrade);
 }
 
 function onProfileSubmit(event) {
   event.preventDefault();
 
+  const photoGrade = normalizePhotoGrade(nodes.photoGrade.value);
+
+  if (state.profile.photos.length < photoGrade) {
+    window.alert(`Upload at least ${photoGrade} photos to use Grade ${photoGrade}.`);
+    return;
+  }
+
   state.profile = {
     name: nodes.name.value.trim(),
-    interests: parseList(nodes.interests.value),
+    photoGrade,
     photos: [...state.profile.photos]
   };
 
@@ -82,13 +111,6 @@ function fileToDataUrl(file) {
   });
 }
 
-function parseList(value) {
-  return value
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
-
 function loadProfile() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -96,7 +118,7 @@ function loadProfile() {
     const parsed = JSON.parse(raw);
     return {
       name: parsed.name || "",
-      interests: Array.isArray(parsed.interests) ? parsed.interests.filter(Boolean) : [],
+      photoGrade: normalizePhotoGrade(parsed.photoGrade),
       photos: Array.isArray(parsed.photos) ? parsed.photos.filter(Boolean) : []
     };
   } catch {
@@ -111,7 +133,7 @@ function saveProfile(profile) {
 function emptyProfile() {
   return {
     name: "",
-    interests: [],
+    photoGrade: 5,
     photos: []
   };
 }
@@ -123,36 +145,20 @@ function buildSeeds(profile) {
   for (const src of profile.photos) {
     seeds.push({ id: id++, type: "image", value: src });
   }
-  for (const interest of profile.interests) {
-    seeds.push({ id: id++, type: "text", value: `Interest: ${interest}` });
-  }
 
   return seeds;
 }
 
 function startNewRound() {
   const seeds = shuffle(buildSeeds(state.profile));
-  const selected = seeds.slice(0, Math.min(6, seeds.length));
+  const selected = seeds.slice(0, Math.min(state.profile.photoGrade, seeds.length));
+  const backSymbols = shuffle(CARD_BACK_SYMBOLS).slice(0, selected.length * 2);
 
   let cardId = 0;
   state.cards = shuffle(
     selected.flatMap((seed) => [
-      {
-        cardId: cardId++,
-        pairId: seed.id,
-        type: seed.type,
-        value: seed.value,
-        isRevealed: false,
-        isMatched: false
-      },
-      {
-        cardId: cardId++,
-        pairId: seed.id,
-        type: seed.type,
-        value: seed.value,
-        isRevealed: false,
-        isMatched: false
-      }
+      createCard(seed, cardId++, backSymbols),
+      createCard(seed, cardId++, backSymbols)
     ])
   );
 
@@ -171,7 +177,7 @@ function showPuzzleView() {
   nodes.puzzleView.classList.remove("hidden");
 
   const person = state.profile.name || "Player";
-  nodes.puzzleTitle.textContent = `${person}'s Memory Puzzle`;
+  nodes.puzzleTitle.textContent = `${person}'s Grade ${state.profile.photoGrade} Memory Puzzle`;
   renderPuzzleHeader();
 }
 
@@ -232,7 +238,7 @@ function renderGrid() {
         button.appendChild(label);
       }
     } else {
-      button.textContent = "?";
+      button.textContent = card.backSymbol;
     }
 
     nodes.gameGrid.appendChild(button);
@@ -294,6 +300,24 @@ function resetSelection() {
   state.firstPickId = null;
   state.secondPickId = null;
   state.lockBoard = false;
+}
+
+function createCard(seed, cardId, backSymbols) {
+  return {
+    cardId,
+    pairId: seed.id,
+    type: seed.type,
+    value: seed.value,
+    backSymbol: backSymbols[cardId],
+    isRevealed: false,
+    isMatched: false
+  };
+}
+
+function normalizePhotoGrade(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (Number.isNaN(parsed)) return 5;
+  return Math.min(10, Math.max(5, parsed));
 }
 
 function shuffle(items) {

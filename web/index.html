@@ -18,14 +18,14 @@
         <p class="eyebrow">Personalized Brain Training</p>
         <h1>Memorize It</h1>
         <p class="subtitle">
-          Build gentle memory puzzles using familiar photos, favorite things, and personal interests.
+          Build gentle memory puzzles using familiar photos and a chosen grade level from 5 to 10 photos.
         </p>
       </header>
 
       <main>
         <section id="profile-view" class="panel">
           <h2>Profile Setup</h2>
-          <p class="helper">Add meaningful details to personalize each puzzle round.</p>
+          <p class="helper">Upload personal photos and choose how many pairs each round should use.</p>
 
           <form id="profile-form" class="form-stack">
             <label>
@@ -34,8 +34,15 @@
             </label>
 
             <label>
-              <span>Interests (comma separated)</span>
-              <input id="interests" type="text" placeholder="family stories, birds" />
+              <span>Grade Level</span>
+              <select id="photo-grade">
+                <option value="5">Grade 5 - 5 photos</option>
+                <option value="6">Grade 6 - 6 photos</option>
+                <option value="7">Grade 7 - 7 photos</option>
+                <option value="8">Grade 8 - 8 photos</option>
+                <option value="9">Grade 9 - 9 photos</option>
+                <option value="10">Grade 10 - 10 photos</option>
+              </select>
             </label>
 
             <label class="upload-wrap">
@@ -64,7 +71,7 @@
           </div>
 
           <div id="empty-state" class="empty hidden">
-            Add at least one photo or interest in profile setup to build a puzzle.
+            Upload at least 5 personal photos to start building graded puzzle rounds.
           </div>
 
           <div id="game-grid" class="game-grid" aria-live="polite"></div>

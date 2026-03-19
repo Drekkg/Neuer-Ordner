@@ -1,34 +1,26 @@
 # Memorize It
 
-Memorize It includes both Android and browser versions of a personalized brain training puzzle app designed around familiar personal memories.
-Users can add personal photos, likes, and interests, and the app turns these into a memory matching game.
+Memorize It includes a browser version of a personalized brain training puzzle app designed around familiar personal memories.
+Users can upload personal photos, choose a grade from 5 to 10 photos, and turn those into a memory matching game.
 
 ## Features
 
-- Profile setup with name, likes, and interests
+- Profile setup with name and grade selection from 5 to 10 photos
 - Photo upload from device gallery
-- Local profile persistence using SharedPreferences + Kotlin serialization
-- Personalized memory match puzzle using uploaded photos and text cues
+- Local profile persistence using localStorage
+- Personalized memory match puzzle using uploaded photos only
 
 ## Platforms
 
-- Android app: Kotlin + Jetpack Compose in `app/`
 - Web app: HTML/CSS/JavaScript in `web/`
 
 ## Project Structure
 
-- app/src/main/java/com/memorizeit/MainActivity.kt: UI flow and game interactions
-- app/src/main/java/com/memorizeit/data/ProfileStore.kt: local profile storage
-- app/src/main/java/com/memorizeit/game/GameFactory.kt: builds puzzle cards from personal data
-- app/src/main/java/com/memorizeit/model/Models.kt: app models
+- web/index.html: profile setup and puzzle layout
+- web/styles.css: visual styling
+- web/script.js: profile persistence and puzzle logic
 
 ## Build and Run
-
-### Android
-
-1. Open this folder in Android Studio.
-2. Let Gradle sync and install any requested Android SDK components.
-3. Run the app on an emulator or Android device.
 
 ### Web
 
